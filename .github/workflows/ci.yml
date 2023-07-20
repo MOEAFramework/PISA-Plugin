@@ -32,4 +32,4 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
-      - run: java -cp "lib/*" org.moeaframework.algorithm.pisa.installer.PISAInstaller install_source
+      - run: java -cp "lib/*" org.moeaframework.algorithm.pisa2.installer.PISAInstaller install_source
