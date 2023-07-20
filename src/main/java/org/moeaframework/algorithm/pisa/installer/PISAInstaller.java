@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -59,9 +59,10 @@ public interface PISAInstaller {
 		return Settings.PROPERTIES.getBoolean(key, true);
 	}
 	
+	// The order of parameters matters!
 	public default Map<String, String> getDefaultParameters(String algorithm) throws FileNotFoundException, IOException {
 		File defaultParameterFile = getDefaultParameterFile(algorithm);
-		Map<String, String> defaultParameters = new HashMap<String, String>();
+		Map<String, String> defaultParameters = new LinkedHashMap<String, String>();
 		
 		try (CommentedLineReader reader = new CommentedLineReader(new FileReader(defaultParameterFile))) {
 			String line = null;

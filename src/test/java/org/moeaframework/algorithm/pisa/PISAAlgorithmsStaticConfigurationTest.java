@@ -209,13 +209,13 @@ public class PISAAlgorithmsStaticConfigurationTest {
 		Assert.assertEquals(0, algorithm.getResult().size());
 		Assert.assertFalse(algorithm.isTerminated());
 		
-		while (algorithm.getNumberOfEvaluations() < 1000) {
+		while (algorithm.getNumberOfEvaluations() < 10000) {
 			algorithm.step();
 		}
 		
 		algorithm.terminate();
 		
-		Assert.assertEquals(1000, algorithm.getNumberOfEvaluations());
+		Assert.assertEquals(10000, algorithm.getNumberOfEvaluations());
 		Assert.assertTrue(algorithm.getResult().size() > 0);
 		Assert.assertTrue(algorithm.isTerminated());
 	}

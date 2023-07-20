@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -128,13 +129,13 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 			throw new IllegalArgumentException("PISA selectors do not support constraints");
 		}
 		
-		Map<String, String> parameters = new HashMap<String, String>();
+		Map<String, String> parameters = new LinkedHashMap<String, String>();
 		
 		//ensure the seed property is set
 		if (!properties.contains("seed")) {
 			properties.setInt("seed", PRNG.nextInt());
 		}
-		
+				
 		//for backwards compatibility, check if defined in the settings.
 		String command = Settings.getPISACommand(name);
 		String configuration = Settings.getPISAConfiguration(name);
