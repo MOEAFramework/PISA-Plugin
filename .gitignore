@@ -1,3 +1,4 @@
 .settings/
 target/
+pisa_binaries/
 dependency-reduced-pom.xml

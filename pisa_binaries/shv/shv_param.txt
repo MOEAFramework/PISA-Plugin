@@ -1,4 +1,0 @@
-seed 2
-bound 2000
-junks 100
-junksize 100
