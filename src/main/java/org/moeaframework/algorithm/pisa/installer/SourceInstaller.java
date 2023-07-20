@@ -27,7 +27,7 @@ import org.moeaframework.util.io.RedirectStream;
  */
 public class SourceInstaller extends AbstractPISAInstaller {
 	
-	private static final String ROOT = "https://github.com/MOEAFramework/PISA/raw/main/selectors/source";
+	private static final String ROOT = "https://github.com/MOEAFramework/PISA/raw/main/selectors/source/";
 	
 	public SourceInstaller() {
 		super();

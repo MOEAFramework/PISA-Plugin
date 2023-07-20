@@ -55,14 +55,15 @@ org.moeaframework.algorithm.pisa.allow_install = false
 
 ### Building from Source
 
-We can also build the PISA selector from source using:
+If using on a non-Windows and non-Linux system, you can try compiling from source code.  However, please note
+that this is experimental and not guaranteed to work on all systems.  
 
 ```bash
 
 java -cp "lib/*" org.moeaframework.algorithm.pisa.installer.PISAInstaller install_source
 ```
 
-Please ensure `make`, `gcc`, `unrar`, `unzip`, and `tar` are installed on the system.
+Compiling will require the following dependencies: `make`, `gcc`, `unrar`, `unzip`, and `tar`.
 
 ## Limitations
 

@@ -22,7 +22,7 @@ import org.apache.commons.lang3.SystemUtils;
 
 public class WindowsInstaller extends AbstractPISAInstaller {
 
-	private static final String ROOT = "https://github.com/MOEAFramework/PISA/raw/main/selectors/win";
+	private static final String ROOT = "https://github.com/MOEAFramework/PISA/raw/main/selectors/win/";
 	
 	public WindowsInstaller() {
 		super();
