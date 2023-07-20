@@ -71,14 +71,14 @@ public abstract class AbstractPISAInstaller implements PISAInstaller {
 			extractFile(localFile, installPath);
 			
 			System.out.println("  > Executing post install steps (if any)");
-			postInstall(installPath);
+			postInstall(algorithm, installPath);
 		} finally {
 			System.out.println("  > Removing downloaded file");
 			localFile.delete();
 		}
 	}
 	
-	protected void postInstall(File installPath) throws IOException {
+	protected void postInstall(String algorithm, File installPath) throws IOException {
 		// intentionally left blank
 	}
 	

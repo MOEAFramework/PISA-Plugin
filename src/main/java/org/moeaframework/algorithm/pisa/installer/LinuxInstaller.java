@@ -17,8 +17,10 @@
  */
 package org.moeaframework.algorithm.pisa.installer;
 
+import java.io.File;
 import java.io.IOException;
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.util.io.RedirectStream;
 
 public class LinuxInstaller extends AbstractPISAInstaller {
 	
@@ -45,6 +47,15 @@ public class LinuxInstaller extends AbstractPISAInstaller {
 	@Override
 	public boolean isOSSupported() {
 		return SystemUtils.IS_OS_LINUX;
+	}
+	
+	@Override
+	public void postInstall(String algorithm, File installPath) throws IOException {
+		File executableFile = new File(getInstallPath(algorithm), getCanonicalName(algorithm));
+		
+		if (executableFile.exists()) {
+			executableFile.setExecutable(true);
+		}
 	}
 	
 	public static void main(String[] args) throws IOException {

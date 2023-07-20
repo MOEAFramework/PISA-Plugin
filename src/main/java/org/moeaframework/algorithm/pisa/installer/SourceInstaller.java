@@ -53,7 +53,7 @@ public class SourceInstaller extends AbstractPISAInstaller {
 	}
 
 	@Override
-	public void postInstall(File installPath) throws IOException {
+	public void postInstall(String algorithm, File installPath) throws IOException {
 		System.out.println("Running make");
 		
 		try {
