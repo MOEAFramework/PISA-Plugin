@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.moeaframework.algorithm.pisa2;
+package org.moeaframework.algorithm.pisa;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.moeaframework.algorithm.pisa2.installer.PISAInstaller;
+import org.moeaframework.algorithm.pisa.installer.PISAInstaller;
 import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.Problem;
 import org.moeaframework.core.Settings;
@@ -90,9 +90,11 @@ public class PISAAlgorithmsStaticConfigurationTest {
 		Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".command", installer.getCommand(name));
 		Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".configuration", installer.getDefaultParameterFile(name).getAbsolutePath());
 		
-		test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem));
+		test(AlgorithmFactory.getInstance().getAlgorithm(name + "-pisa", properties, problem));
 		
 		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa.algorithms");
+		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa." + name + ".command");
+		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa." + name + ".configuration");
 	}
 	
 	@Test(expected = ProviderNotFoundException.class)

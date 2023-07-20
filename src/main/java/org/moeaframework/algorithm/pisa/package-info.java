@@ -21,4 +21,4 @@
  * 
  * @see <a href="http://sop.tik.ee.ethz.ch/pisa/">PISA Homepage</a>
  */
-package org.moeaframework.algorithm.pisa2;
+package org.moeaframework.algorithm.pisa;

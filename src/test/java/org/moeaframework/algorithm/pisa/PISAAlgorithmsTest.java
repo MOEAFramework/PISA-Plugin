@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.moeaframework.algorithm.pisa2;
+package org.moeaframework.algorithm.pisa;
 
 import java.io.IOException;
 
@@ -83,7 +83,7 @@ public class PISAAlgorithmsTest {
 	 */
 	@Test
 	public void testNSGA2() {
-		test("nsga2");
+		test("nsga2-pisa");
 	}
 	
 	public void test(String name) {
@@ -105,7 +105,7 @@ public class PISAAlgorithmsTest {
 		double result3 = test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem), seed1);
 		
 		double result4 = test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem), seed1);
-
+		
 		Assert.assertTrue(result1 != result3);
 		Assert.assertTrue(result2 != result3);
 		Assert.assertTrue(result3 == result4);

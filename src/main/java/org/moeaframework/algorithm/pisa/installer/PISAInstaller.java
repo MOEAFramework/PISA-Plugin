@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.moeaframework.algorithm.pisa2.installer;
+package org.moeaframework.algorithm.pisa.installer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,6 +31,8 @@ import org.moeaframework.core.Settings;
 import org.moeaframework.util.io.CommentedLineReader;
 
 public interface PISAInstaller {
+	
+	public boolean isOSSupported();
 		
 	public void install(String algorithm) throws IOException;
 	
