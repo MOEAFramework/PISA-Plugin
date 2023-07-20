@@ -19,8 +19,8 @@ package org.moeaframework.algorithm.pisa.installer;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.apache.commons.lang3.SystemUtils;
-import org.moeaframework.util.io.RedirectStream;
 
 public class LinuxInstaller extends AbstractPISAInstaller {
 	
