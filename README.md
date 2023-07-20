@@ -18,10 +18,11 @@ Add the following dependency to your `pom.xml`:
 </dependency>
 ```
 
+Or copy the JAR into the MOEA Framework's `lib/` folder.
+
 ## Usage
 
-Once this plugin is added as a Maven dependency, you can reference PISA selectors as you would
-any other:
+Once this plugin is added, you can reference PISA selectors as you would any other algorithm:
 
 ```java
 
@@ -32,13 +33,31 @@ NondominatedPopulation result = new Executor()
 		.run();
 ```
 
-One key difference, however, is that PISA selectors are third-party executables.  The first time you
-attempt to use an algorithm, it will be downloaded from [our mirror](https://github.com/MOEAFramework/PISA/).
-Binaries are pre-compiled for Windows and Linux.
+One key difference, however, is that PISA selectors are third-party executables.  Precompiled binaries are
+available for Windows and Linux.
+
+The following PISA selectors are supported:
+
+Selector | MOEA Framework Name
+-------- | -------------------
+ECEA     | `ecea-pisa`
+EpsMOEA  | `epsmoea-pisa`
+FEMO     | `femo-pisa`
+Hype     | `hype-pisa`
+IBEA     | `ibea-pisa`
+MSOPS    | `msops-pisa`
+NSGA2    | `nsga2-pisa`
+SEMO     | `semo-pisa`
+SEMO2    | `semo2-pisa`
+SHV      | `shv-pisa`
+SIBEA    | `sibea-pisa`
+SPAM     | `spam-pisa`
+SPAM2    | `spea2-pisa`
 
 ### Install All
 
-Instead of installing each selector when it's first used, you may also install all at once by running:
+Selectors are automatically downloaded and installed from our [GitHub Mirror](https://github.com/MOEAFramework/PISA/).
+To avoid this setup or to support running without an internet connection, you can preinstall all selectors by running:
 
 ```bash
 
@@ -47,7 +66,8 @@ java -cp "lib/*" org.moeaframework.algorithm.pisa.installer.PISAInstaller instal
 
 ### Blocking Downloads
 
-If you want to prevent the automatic download of PISA selectors, add the following line to `moeaframework.properties`:
+Additionally, if you don't want to allow PISA selectors to be downloaded automatically, add the following to 
+`moeaframework.properties`:
 
 ```
 org.moeaframework.algorithm.pisa.allow_install = false
@@ -55,8 +75,9 @@ org.moeaframework.algorithm.pisa.allow_install = false
 
 ### Building from Source
 
-If using on a non-Windows and non-Linux system, you can try compiling from source code.  However, please note
-that this is experimental and not guaranteed to work on all systems.  
+Precompiled binaries are provided for Windows and Linux.  Attempting to use on a different OS will try to
+compile from source code.  This is experimental and is not supported on all systems.  You may also compile
+all selectors by running:
 
 ```bash
 
@@ -64,6 +85,7 @@ java -cp "lib/*" org.moeaframework.algorithm.pisa.installer.PISAInstaller instal
 ```
 
 Compiling will require the following dependencies: `make`, `gcc`, `unrar`, `unzip`, and `tar`.
+
 
 ## Limitations
 
