@@ -164,6 +164,7 @@ public class PISAAlgorithmsStaticConfigurationTest {
 	}
 	
 	@Test
+	@Ignore("requires unrar")
 	public void testSHV() throws IOException {
 		run("shv", realProblem);
 	}
