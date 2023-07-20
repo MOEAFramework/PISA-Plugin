@@ -28,7 +28,7 @@ Once this plugin is added, you can reference PISA selectors as you would any oth
 
 NondominatedPopulation result = new Executor()
 		.withProblem("DTLZ2_3")
-		.withAlgorithm("HYPE")
+		.withAlgorithm("hype-pisa")
 		.withMaxEvaluations(10000)
 		.run();
 ```
