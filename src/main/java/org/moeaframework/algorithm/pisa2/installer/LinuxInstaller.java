@@ -26,18 +26,18 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.FrameworkException;
-import org.moeaframework.util.io.RedirectStream;
 
-public class SourceInstaller implements PISAInstaller {
+public class LinuxInstaller implements PISAInstaller {
 	
-	private static final Map<String, URL> files = new HashMap<String, URL>();
+	private static final Map<String, URL> binaries = new HashMap<String, URL>();
 	
-	private static final String root = "https://github.com/MOEAFramework/PISA/raw/main/selectors/source";
+	private static final String root = "https://github.com/MOEAFramework/PISA/raw/main/selectors/linux";
 	
 	private static void register(String algorithm, String remoteFile) {
 		try {
-			files.put(getCanonicalName(algorithm), new URL(root + "/" + remoteFile));
+			binaries.put(getCanonicalName(algorithm), new URL(root + "/" + remoteFile));
 		} catch (MalformedURLException e) {
 			throw new FrameworkException(e);
 		}
@@ -48,19 +48,19 @@ public class SourceInstaller implements PISAInstaller {
 	}
 	
 	static {
-		register("ecea", "ecea_c_source.tar.gz");
-		register("epsmoea", "epsmoea_c_source.tar.gz");
-		register("femo", "femo_c_source.tar.gz");
-		register("hype", "hype_c_source.tar.gz");
-		register("ibea", "ibea_c_source.tar.gz");
-		register("msops", "msops_c_source.tar.gz");
-		register("nsga2", "nsga2_c_source.tar.gz");
-		register("semo2", "semo2_c_source.tar.gz");
-		register("semo", "semo_c_source.tar");
-		register("shv", "shv_c_source.rar");
-		//register("sibea", "sibea_source.zip"); // This is Java, no Makefile provided
-		register("spam", "spam_c_source.tar.gz");
-		register("spea2", "spea2_c_source.tar.gz");
+		register("ecea", "ecea_linux.tar.gz");
+		register("epsmoea", "epsmoea_linux.tar.gz");
+		register("femo", "femo_linux.tar.gz");
+		register("hype", "hype_linux_32.tar.gz");
+		register("ibea", "ibea_linux.tar.gz");
+		register("msops", "msops_linux.tar.gz");
+		register("nsga2", "nsga2_linux.tar.gz");
+		register("semo2", "semo2_linux.tar.gz");
+		register("semo", "semo_linux.tar.gz");
+		register("shv", "shv_linux32.rar");
+		register("sibea", "sibea_binary.zip");
+		register("spam", "spam_linux_32.tar.gz");
+		register("spea2", "spea2_linux.tar.gz");
 	}
 
 	@Override
@@ -68,7 +68,11 @@ public class SourceInstaller implements PISAInstaller {
 		if (!allowInstall()) {
 			throw new FrameworkException("Installation of PISA selectors is not enabled");
 		}
-
+		
+		if (!SystemUtils.IS_OS_LINUX) {
+			throw new FrameworkException("Only supported on Linux systems");
+		}
+		
 		URL downloadURL = getDownloadURL(algorithm);
 		
 		if (downloadURL == null) {
@@ -84,8 +88,6 @@ public class SourceInstaller implements PISAInstaller {
 			File installPath = getInstallPath(algorithm);
 			System.out.println("Extracting " + localFile.getAbsolutePath() + " to " + installPath.getAbsolutePath());
 			InstallerUtils.extractFile(localFile, installPath);
-			
-			runMake(installPath);
 		} finally {
 			System.out.println("Deleting " + localFile.getAbsolutePath());
 			localFile.delete();
@@ -99,7 +101,7 @@ public class SourceInstaller implements PISAInstaller {
 	
 	@Override
 	public String getCommand(String algorithm) {
-		File executableFile = new File(getInstallPath(algorithm), getCanonicalName(algorithm) + ".exe");
+		File executableFile = new File(getInstallPath(algorithm), getCanonicalName(algorithm));
 		
 		if (executableFile.exists()) {
 			return executableFile.getAbsolutePath();
@@ -116,33 +118,17 @@ public class SourceInstaller implements PISAInstaller {
 	
 	@Override
 	public void installAll() throws IOException {
-		for (String algorithm : files.keySet()) {
+		for (String algorithm : binaries.keySet()) {
 			install(algorithm);
 		}
 	}
 	
-	public static void runMake(File folder) throws IOException {
-		System.out.println("Running make");
-		
-		try {
-			Process process = new ProcessBuilder("make").directory(folder).start();
-			RedirectStream.redirect(process.getInputStream(), System.out);
-			RedirectStream.redirect(process.getErrorStream(), System.err);
-			
-			if (process.waitFor() != 0) {
-				throw new IOException("make exited with an error code (" + process.exitValue() + ")");
-			}
-		} catch (InterruptedException e) {
-			throw new IOException("make interrupted", e);
-		}
-	}
-	
 	private URL getDownloadURL(String algorithm) {
-		return files.get(getCanonicalName(algorithm));
+		return binaries.get(getCanonicalName(algorithm));
 	}
 	
 	public static void main(String[] args) throws IOException {
-		new SourceInstaller().installAll();
+		new LinuxInstaller().installAll();
 	}
 
 }

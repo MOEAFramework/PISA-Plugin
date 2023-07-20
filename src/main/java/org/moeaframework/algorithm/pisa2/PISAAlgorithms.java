@@ -18,11 +18,11 @@
 package org.moeaframework.algorithm.pisa2;
 
 import java.util.function.BiFunction;
+
 import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.Problem;
 import org.moeaframework.core.Variation;
 import org.moeaframework.core.spi.OperatorFactory;
-import org.moeaframework.core.spi.ProviderLookupException;
 import org.moeaframework.core.spi.ProviderNotFoundException;
 import org.moeaframework.core.spi.RegisteredAlgorithmProvider;
 import org.moeaframework.util.TypedProperties;

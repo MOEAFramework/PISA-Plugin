@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.Settings;
 import org.moeaframework.util.io.CommentedLineReader;
 
@@ -79,10 +80,11 @@ public interface PISAInstaller {
 	public static PISAInstaller getInstaller() {
 		if (SystemUtils.IS_OS_WINDOWS) {
 			return new WindowsInstaller();
-//		} else if (SystemUtils.IS_OS_LINUX) {
-//			return new LinuxInstaller();
+		} else if (SystemUtils.IS_OS_LINUX) {
+			return new LinuxInstaller();
 		} else {
-			return new SourceInstaller();
+			throw new FrameworkException("PISA selectors not supported on " + SystemUtils.OS_NAME);
+			//return new SourceInstaller();
 		}
 	}
 	

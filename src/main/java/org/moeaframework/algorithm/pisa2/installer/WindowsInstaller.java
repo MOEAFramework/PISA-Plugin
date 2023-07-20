@@ -28,7 +28,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.FrameworkException;
-import org.moeaframework.util.io.RedirectStream;
 
 public class WindowsInstaller implements PISAInstaller {
 	
@@ -81,15 +80,18 @@ public class WindowsInstaller implements PISAInstaller {
 		}
 		
 		File localFile = new File(FilenameUtils.getName(downloadURL.getPath()));
-		System.out.println("Downloading " + algorithm + " to " + localFile.getAbsolutePath());
-		FileUtils.copyURLToFile(downloadURL, localFile);
 		
-		File installPath = getInstallPath(algorithm);
-		System.out.println("Extracting " + localFile.getAbsolutePath() + " to " + installPath.getAbsolutePath());
-		extractFile(localFile, installPath);
-		
-		System.out.println("Deleting " + localFile.getAbsolutePath());
-		localFile.delete();
+		try {
+			System.out.println("Downloading " + algorithm + " to " + localFile.getAbsolutePath());
+			FileUtils.copyURLToFile(downloadURL, localFile);
+			
+			File installPath = getInstallPath(algorithm);
+			System.out.println("Extracting " + localFile.getAbsolutePath() + " to " + installPath.getAbsolutePath());
+			InstallerUtils.extractFile(localFile, installPath);
+		} finally {
+			System.out.println("Deleting " + localFile.getAbsolutePath());
+			localFile.delete();
+		}
 	}
 	
 	@Override
@@ -120,67 +122,7 @@ public class WindowsInstaller implements PISAInstaller {
 			install(algorithm);
 		}
 	}
-	
-	private void extractFile(File zipFile, File destinationPath) throws IOException {
-		FileUtils.forceMkdir(destinationPath);
-		
-		try {
-			Process process = new ProcessBuilder(buildExtractCommand(zipFile, destinationPath)).start();
-			RedirectStream.redirect(process.getInputStream(), System.out);
-			RedirectStream.redirect(process.getErrorStream(), System.err);
-			
-			if (process.waitFor() != 0) {
-				throw new FrameworkException("Extraction exited with an error code (" + process.exitValue() + ")");
-			}
-		} catch (InterruptedException e) {
-			throw new FrameworkException(e);
-		}
-		
-		cleanupNestedFolder(destinationPath);
-	}
-	
-	private String[] buildExtractCommand(File zipFile, File destinationPath) {
-		String extension = FilenameUtils.getExtension(zipFile.getPath());
-		
-		if (extension.equalsIgnoreCase("zip")) {
-			return new String[] {
-					"pwsh",
-					"-Command",
-					"Expand-Archive -Path \"" + zipFile.getAbsolutePath() + "\" -DestinationPath \"" + destinationPath.getAbsolutePath() + "\" -Force"
-			};
-		} else if (extension.equalsIgnoreCase("tar") || extension.equalsIgnoreCase("gz") || extension.equalsIgnoreCase("tar.gz")) {
-			return new String[] {
-					"tar",
-					"-x",
-					"-f",
-					zipFile.getAbsolutePath(),
-					"-C",
-					destinationPath.getAbsolutePath()
-			};
-		} else {
-			throw new FrameworkException("Unsupported archive extension " + extension);
-		}
-	}
-	
-	private void cleanupNestedFolder(File path) throws IOException {
-		File[] files = path.listFiles();
-		
-		if (files.length == 1 && files[0].isDirectory()) {
-			File nestedFolder = files[0];
-			System.out.println("Cleaning up nested directory in " + path.getAbsolutePath());
-			
-			for (File nestedFile : nestedFolder.listFiles()) {
-				if (nestedFile.isDirectory()) {
-					FileUtils.moveDirectoryToDirectory(nestedFile, path, true);
-				} else {
-					FileUtils.moveFileToDirectory(nestedFile, path, false);
-				}
-			}
-			
-			nestedFolder.delete();
-		}
-	}
-	
+
 	private URL getDownloadURL(String algorithm) {
 		return binaries.get(getCanonicalName(algorithm));
 	}

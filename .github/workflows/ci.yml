@@ -6,10 +6,11 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os: [ 'windows-latest', 'ubuntu-latest' ]
         java: [ '16', '17', '18', '19', '20' ]
     steps:
       - uses: actions/checkout@v3
@@ -19,17 +20,3 @@ jobs:
           java-version: ${{ matrix.java }}
           distribution: zulu
       - run: mvn test
-  test-install-source:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        java: [ '16', '17', '18', '19', '20' ]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK ${{ matrix.java }}
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ matrix.java }}
-          distribution: zulu
-      - run: java -cp "lib/*" org.moeaframework.algorithm.pisa2.installer.PISAInstaller install_source
