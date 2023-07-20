@@ -19,4 +19,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: zulu
+      - name: Install dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt install unrar
       - run: mvn test
