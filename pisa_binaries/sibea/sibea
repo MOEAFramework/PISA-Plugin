@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+use strict;
+use warnings;
+
+my $ar = "";
+
+foreach my $argnum ( 0 .. $#ARGV ) {
+	$ar = $ar . "\"$ARGV[$argnum]\" ";
+}
+
+system( "java-1.6.0 -jar $0.jar $ar" );

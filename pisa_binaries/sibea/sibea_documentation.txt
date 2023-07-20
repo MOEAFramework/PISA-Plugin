@@ -1,0 +1,108 @@
+========================================================================
+PISA  (www.tik.ee.ethz.ch/pisa/)
+========================================================================
+Computer Engineering (TIK)
+ETH Zurich	 
+========================================================================
+SIBEA - Simple Indicator Based Evolutionary Algorithm
+
+Implementation in Java for the selector side.
+
+Documentation
+  
+author: Johannes Bader, johannes.bader@tik.ee.ethz.ch
+last change: 3.11.2008
+========================================================================
+
+
+
+The Optimizer
+=============
+
+SIBEA is an multiobjective evolutionary algorithm that calculates fitness
+values based on the SIBEA rvolume contribution. Thereby,
+no particular diversity preservation techniques such as fitness sharing,
+clustering, etc. is necessary. For biobjective problems, SIBEA uses dynamic programming in
+the environmental selection step to obtain the obtimal subset. For higher dimensions, a greedy
+approach is used instead.
+
+@InProceedings{	  bz2007c,
+	author={D. Brockhoff and E. Zitzler},
+	title={{Improving SIBEA rvolume-based Multiobjective Evolutionary Algorithms by Using Objective Reduction Methods}},
+	booktitle={Congress on Evolutionary Computation (CEC 2007)},
+	year={2007},
+	pages={2086--2093},
+	publisher={IEEE Press},
+	location={Singapore},
+	supplement={http://www.tik.ee.ethz.ch/sop/download/supplementary/objectiveReduction/}
+}
+
+The Parameters
+==============
+
+SIBEA uses the following values for the common parameters.
+These parameters are specified in 'PISA_cfg'.
+
+alpha    (population size)
+mu       (number of parent individuals)
+lambda   (number of offspring individuals)
+dim      (number of objectives)
+
+
+
+SIBEA takes two local parameter which is given in a parameter
+file. The name of this parameter file is passed to SIBEA  as command
+line argument. (See 'SIBEA _param.txt' for an example.)
+
+seed         (seed for the random number generator)
+bound        (upper bound defining the reference point as r = (bound, ..., bound) )
+
+
+Usage
+=====
+
+Start SIBEA  with the following arguments:
+
+SIBEA  paramfile filenamebase poll
+
+paramfile: specifies the name of the file containing the local
+parameters (e.g. SIBEA_param.txt)
+
+filenamebase: specifies the name (and optionally the directory) of the
+communication files. The filenames of the communication files and the
+configuration file are built by appending 'sta', 'var', 'sel','ini',
+'arc' and 'cfg' to the filenamebase. This gives the following names for
+the 'PISA_' filenamebase:
+
+PISA_cfg - configuration file
+PISA_ini - initial population
+PISA_sel - individuals selected for variation (PISA_
+PISA_var - variated individuals (offspring)
+PISA_arc - individuals in the archive
+
+
+Caution: the filenamebase must be consistent with the name of
+the configuration file and the filenamebase specified for the SIBEA 
+module.
+
+poll: gives the value for the polling time in seconds (e.g. 0.5). This
+      polling time must be larger than 0.01 seconds.
+
+
+
+
+Limitations
+===========
+
+None limitations are known so far.
+
+
+
+Stopping and Resetting
+======================
+
+The behaviour in state 5 and 9 is not determined by the interface but
+by each variator module specifically. SIBEA  behaves as follows:
+
+state 5 (= variator terminated): set state to 6 (terminate as well).
+state 9 (= variator resetted): set state to 10 (reset as well).

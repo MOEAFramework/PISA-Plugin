@@ -1,0 +1,127 @@
+========================================================================
+PISA  (www.tik.ee.ethz.ch/pisa/)
+========================================================================
+Computer Engineering (TIK)
+ETH Zurich	 
+========================================================================
+ECEA - Epsilon-Constraint Evolutionary Algorithm
+
+Implementation in C for the selector side.
+
+Documentation
+  
+file: ecea_documentation.txt
+author: Marco Laumanns, laumanns@tik.ee.ethz.ch
+last change: $date$
+========================================================================
+
+
+
+The Optimizer
+=============
+
+ECEA is a multiobjective evolutionary algorithm based on a
+novel, adaptive implementation of the epsilon-constraint
+method. In contrast to the original epsilon-constraint
+method, the constraint values don't have to be defined
+beforehand, because they are adaptively generated during the
+run. For the constraint single-objective subproblems, a
+simple (mu+lambda)-EA is used. The maximum number of
+iterations of each run of the EA to solve the
+single-objective subproblem has to be specified via a
+parameter.
+
+
+
+The Parameters
+==============
+
+ECEA uses the following values for the common parameters.
+These parameters are specified in 'PISA_cfg'.
+
+alpha    (population size)
+mu       (number of parent individuals)
+lambda   (number of offspring individuals)
+dim      (number of objectives)
+
+'PISA_cfg' is a sample PISA_configuration file.
+
+ECEA takes two local parameter which is given in a parameter
+file. The name of this parameter file is passed to ECEA as command
+line argument. (See 'ecea_param.txt' for an example.)
+
+seed           (seed for the random number generator)
+max_iteration  (maximum number of iterations for the EA
+                when solving the subproblem)
+
+
+Source Files
+============
+
+The source code for ECEA is divided into four files:
+
+'ecea.h' is the header file.
+
+'ecea.c' contains the main function and implements the control flow.
+
+'ecea_io.c' implements the file i/o functions.
+
+'ecea_functions.c' implements all other functions including the
+selection.
+
+Additionally a Makefile, a PISA_configuration file with common
+parameters and a PISA_parameter file with local parameters are
+contained in the tar file.
+
+Depending on whether you compile on Windows or on Unix (any OS having
+<unistd.h>) uncomment the according '#define' in the 'ecea.h' file.
+
+
+
+Usage
+=====
+
+Start ECEA with the following arguments:
+
+ecea paramfile filenamebase poll
+
+paramfile: specifies the name of the file containing the local
+parameters (e.g. ecea_param.txt)
+
+filenamebase: specifies the name (and optionally the directory) of the
+communication files. The filenames of the communication files and the
+configuration file are built by appending 'sta', 'var', 'sel','ini',
+'arc' and 'cfg' to the filenamebase. This gives the following names for
+the 'PISA_' filenamebase:
+
+PISA_cfg - configuration file
+PISA_ini - initial population
+PISA_sel - individuals selected for variation (PISA_
+PISA_var - variated individuals (offspring)
+PISA_arc - individuals in the archive
+
+
+Caution: the filenamebase must be consistent with the name of
+the configuration file and the filenamebase specified for the ECEA
+module.
+
+poll: gives the value for the polling time in seconds (e.g. 0.5). This
+      polling time must be larger than 0.01 seconds.
+
+
+
+Limitations
+===========
+
+No limitations are known so far.
+
+
+
+Stopping and Resetting
+======================
+
+The behaviour in state 5 and 9 is not determined by the interface but
+by each variator module specifically. ECEA behaves as follows:
+
+state 5 (= variator terminated): set state to 6 (terminate as well).
+state 9 (= variator resetted): set state to 10 (reset as well).
