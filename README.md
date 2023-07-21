@@ -36,10 +36,11 @@ NondominatedPopulation result = new Executor()
 One key difference, however, is that PISA selectors are third-party executables.  Precompiled binaries are
 available for Windows and Linux.
 
-The following PISA selectors are supported:
+The following PISA selectors are supported.  We recommend adding `-pisa` to the algorithm name to ensure
+the PISA version is used.
 
-Selector | MOEA Framework Name
--------- | -------------------
+Selector | MOEA Framework Algorithm Name
+-------- | -----------------------------
 ECEA     | `ecea-pisa`
 EpsMOEA  | `epsmoea-pisa`
 FEMO     | `femo-pisa`
