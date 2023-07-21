@@ -82,10 +82,10 @@ all selectors by running:
 
 ```bash
 
-java -cp "lib/*" org.moeaframework.algorithm.pisa.installer.PISAInstaller install_source
+java -cp "lib/*" org.moeaframework.algorithm.pisa.PISAAlgorithms install_source
 ```
 
-Compiling will require the following dependencies: `make`, `gcc`, `unrar`, `unzip`, and `tar`.
+Compiling will require the following dependencies: `make`, a C/C++ compiler such as `gcc`, `unrar`, `unzip`, and `tar`.
 
 
 ## Limitations
