@@ -82,6 +82,10 @@ public class PISAAlgorithmsStaticConfigurationTest {
 	
 	private void run(String name, Problem problem) throws IOException {
 		try {
+			if (!installer.isInstalled(name)) {
+				installer.install(name);
+			}
+			
 			Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa.algorithms", name);
 			Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".command", installer.getCommand(name));
 			Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".configuration", installer.getDefaultParameterFile(name).getAbsolutePath());
