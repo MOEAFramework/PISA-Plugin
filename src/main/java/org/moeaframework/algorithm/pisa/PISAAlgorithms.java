@@ -40,7 +40,7 @@ public class PISAAlgorithms extends RegisteredAlgorithmProvider {
 		
 		if (PISASettings.getPISAAlgorithms().length > 0) {
 			for (String algorithm : PISASettings.getPISAAlgorithms()) {
-				register(fromProblem("algorithm"), "algorithm", algorithm + "-pisa");
+				register(fromProblem(algorithm), algorithm, algorithm + "-pisa");
 			}
 		} else {
 			register(fromProblem("ecea"), "ecea", "ecea-pisa");

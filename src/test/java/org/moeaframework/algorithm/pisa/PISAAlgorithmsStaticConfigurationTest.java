@@ -29,7 +29,6 @@ import org.moeaframework.algorithm.pisa.installer.PISAInstaller;
 import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.Problem;
 import org.moeaframework.core.Settings;
-import org.moeaframework.core.spi.AlgorithmFactory;
 import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.core.spi.ProviderNotFoundException;
 import org.moeaframework.util.TypedProperties;
@@ -82,19 +81,17 @@ public class PISAAlgorithmsStaticConfigurationTest {
 	}
 	
 	private void run(String name, Problem problem) throws IOException {
-		if (!installer.isInstalled(name)) {
-			installer.install(name);
+		try {
+			Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa.algorithms", name);
+			Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".command", installer.getCommand(name));
+			Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".configuration", installer.getDefaultParameterFile(name).getAbsolutePath());
+			
+			test(new PISAAlgorithms().getAlgorithm(name + "-pisa", properties, problem));
+		} finally {
+			Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa.algorithms");
+			Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa." + name + ".command");
+			Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa." + name + ".configuration");
 		}
-		
-		Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa.algorithms", name);
-		Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".command", installer.getCommand(name));
-		Settings.PROPERTIES.setString("org.moeaframework.algorithm.pisa." + name + ".configuration", installer.getDefaultParameterFile(name).getAbsolutePath());
-		
-		test(AlgorithmFactory.getInstance().getAlgorithm(name + "-pisa", properties, problem));
-		
-		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa.algorithms");
-		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa." + name + ".command");
-		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa." + name + ".configuration");
 	}
 	
 	@Test(expected = ProviderNotFoundException.class)

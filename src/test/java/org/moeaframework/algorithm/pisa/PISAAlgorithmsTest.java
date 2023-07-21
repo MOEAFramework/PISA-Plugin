@@ -27,7 +27,6 @@ import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Problem;
 import org.moeaframework.core.indicator.QualityIndicator;
-import org.moeaframework.core.spi.AlgorithmFactory;
 import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.util.TypedProperties;
 
@@ -94,17 +93,17 @@ public class PISAAlgorithmsTest {
 			seed2 = PRNG.getRandom().nextLong();
 		}
 
-		double result1 = test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem), seed1);
+		double result1 = test(new PISAAlgorithms().getAlgorithm(name, properties, problem), seed1);
 		
 		properties.setInt("seed", PRNG.nextInt());
 		
-		double result2 = test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem), seed2);
+		double result2 = test(new PISAAlgorithms().getAlgorithm(name, properties, problem), seed2);
 		
 		properties.setInt("tournament", 3);
 		
-		double result3 = test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem), seed1);
+		double result3 = test(new PISAAlgorithms().getAlgorithm(name, properties, problem), seed1);
 		
-		double result4 = test(AlgorithmFactory.getInstance().getAlgorithm(name, properties, problem), seed1);
+		double result4 = test(new PISAAlgorithms().getAlgorithm(name, properties, problem), seed1);
 		
 		Assert.assertTrue(result1 != result3);
 		Assert.assertTrue(result2 != result3);
