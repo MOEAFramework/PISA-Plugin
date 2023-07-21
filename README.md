@@ -1,6 +1,6 @@
 # PISA-Plugin
 
-Enables using [PISA - A Platform and Programming Language Independent Interface for Search Algorithms](http://sop.tik.ee.ethz.ch/pisa) selectors withing the MOEA Framework.  If using any of the PISA
+Enables using [PISA - A Platform and Programming Language Independent Interface for Search Algorithms](http://sop.tik.ee.ethz.ch/pisa) selectors within the MOEA Framework.  If using any of the PISA
 algorithms, please cite:
 
 > Bleuler, Stefan, Marco Laumanns, Lothar Thiele and Eckart Zitzler. “PISA: A Platform and Programming Language Independent Interface for Search Algorithms.” International Conference on Evolutionary Multi-Criterion Optimization (2003).
