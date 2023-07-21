@@ -22,6 +22,7 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.moeaframework.algorithm.pisa.PISASettings;
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.core.Settings;
 
@@ -50,7 +51,7 @@ public class PISAInstallerTests {
 	public void testInstallDisabled() throws IOException {
 		Settings.PROPERTIES.setBoolean("org.moeaframework.algorithm.pisa.allow_install", false);
 		
-		Assert.assertFalse(installer.allowInstall());
+		Assert.assertFalse(PISASettings.getPISAAllowInstall());
 		Assert.assertThrows(FrameworkException.class, () -> installer.install("nsga2"));
 		
 		Settings.PROPERTIES.remove("org.moeaframework.algorithm.pisa.allow_install");

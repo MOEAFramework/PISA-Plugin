@@ -38,19 +38,25 @@ public class PISAAlgorithms extends RegisteredAlgorithmProvider {
 	public PISAAlgorithms() {
 		super();
 		
-		register(fromProblem("ecea"), "ecea", "ecea-pisa");
-		register(fromProblem("epsmoea"), "epsmoea", "epsmoea-pisa");
-		register(fromProblem("femo"), "femo", "femo-pisa");
-		register(fromProblem("hype"), "hype", "hype-pisa");
-		register(fromProblem("ibea"), "ibea", "ibea-pisa");
-		register(fromProblem("msops"), "msops", "msops-pisa");
-		register(fromProblem("nsga2"), "nsga2", "nsga2-pisa");
-		register(fromProblem("semo2"), "semo2", "semo2-pisa");
-		register(fromProblem("semo"), "semo", "semo-pisa");
-		register(fromProblem("shv"), "shv", "shv-pisa");
-		register(fromProblem("sibea"), "sibea", "sibea-pisa");
-		register(fromProblem("spam"), "spam", "spam-pisa");
-		register(fromProblem("spea2"), "spea2", "spea2-pisa");
+		if (PISASettings.getPISAAlgorithms().length > 0) {
+			for (String algorithm : PISASettings.getPISAAlgorithms()) {
+				register(fromProblem("algorithm"), "algorithm", algorithm + "-pisa");
+			}
+		} else {
+			register(fromProblem("ecea"), "ecea", "ecea-pisa");
+			register(fromProblem("epsmoea"), "epsmoea", "epsmoea-pisa");
+			register(fromProblem("femo"), "femo", "femo-pisa");
+			register(fromProblem("hype"), "hype", "hype-pisa");
+			register(fromProblem("ibea"), "ibea", "ibea-pisa");
+			register(fromProblem("msops"), "msops", "msops-pisa");
+			register(fromProblem("nsga2"), "nsga2", "nsga2-pisa");
+			register(fromProblem("semo2"), "semo2", "semo2-pisa");
+			register(fromProblem("semo"), "semo", "semo-pisa");
+			register(fromProblem("shv"), "shv", "shv-pisa");
+			register(fromProblem("sibea"), "sibea", "sibea-pisa");
+			register(fromProblem("spam"), "spam", "spam-pisa");
+			register(fromProblem("spea2"), "spea2", "spea2-pisa");
+		}
 	}
 	
 	private BiFunction<TypedProperties, Problem, Algorithm> fromProblem(String name) {

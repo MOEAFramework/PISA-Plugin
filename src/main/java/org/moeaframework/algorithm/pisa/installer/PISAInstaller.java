@@ -27,7 +27,6 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.core.FrameworkException;
-import org.moeaframework.core.Settings;
 import org.moeaframework.util.io.CommentedLineReader;
 
 public interface PISAInstaller {
@@ -52,11 +51,6 @@ public interface PISAInstaller {
 	
 	public default boolean isInstalled(String algorithm) {
 		return getInstallPath(algorithm).exists();
-	}
-	
-	public default boolean allowInstall() {
-		String key = Settings.createKey("org", "moeaframework", "algorithm", "pisa", "allow_install");
-		return Settings.PROPERTIES.getBoolean(key, true);
 	}
 	
 	// The order of parameters matters!

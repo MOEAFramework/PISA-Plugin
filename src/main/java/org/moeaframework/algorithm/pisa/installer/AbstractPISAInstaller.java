@@ -27,6 +27,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.algorithm.pisa.PISASettings;
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.util.io.RedirectStream;
 
@@ -44,7 +45,7 @@ public abstract class AbstractPISAInstaller implements PISAInstaller {
 
 	@Override
 	public void install(String algorithm) throws IOException {
-		if (!allowInstall()) {
+		if (!PISASettings.getPISAAllowInstall()) {
 			throw new FrameworkException("installation of PISA selectors is not enabled");
 		}
 		

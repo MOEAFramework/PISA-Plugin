@@ -137,13 +137,13 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 		}
 				
 		//for backwards compatibility, check if defined in the settings.
-		String command = Settings.getPISACommand(name);
-		String configuration = Settings.getPISAConfiguration(name);
-		int pollRate = Settings.getPISAPollRate();
+		String command = PISASettings.getPISACommand(name);
+		String configuration = PISASettings.getPISAConfiguration(name);
+		int pollRate = PISASettings.getPISAPollRate();
 		
 		if (command != null) {
-			for (String parameter : Settings.getPISAParameters(name)) {
-				parameters.put(parameter, Settings.getPISAParameterDefaultValue(name, parameter));
+			for (String parameter : PISASettings.getPISAParameters(name)) {
+				parameters.put(parameter, PISASettings.getPISAParameterDefaultValue(name, parameter));
 			}
 		}
 		
