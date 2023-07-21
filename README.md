@@ -14,11 +14,11 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>org.moeaframework</groupId>
     <artifactId>pisa-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
-Or copy the JAR into the MOEA Framework's `lib/` folder.
+Or download the JAR from the [Releases](releases) into the MOEA Framework's `lib/` folder.
 
 ## Usage
 
@@ -61,7 +61,7 @@ To avoid this setup or to support running without an internet connection, you ca
 
 ```bash
 
-java -cp "lib/*" org.moeaframework.algorithm.pisa.installer.PISAInstaller install
+java -cp "lib/*" org.moeaframework.algorithm.pisa.PISAAlgorithms install
 ```
 
 ### Blocking Downloads

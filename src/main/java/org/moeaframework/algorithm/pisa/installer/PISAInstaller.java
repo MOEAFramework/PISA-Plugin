@@ -84,22 +84,5 @@ public interface PISAInstaller {
 			//return new SourceInstaller();
 		}
 	}
-	
-	public static void main(String[] args) throws IOException {
-		if (args.length != 1) {
-			System.err.println("Requires one argument: clear, install, install_source");
-		}
-		
-		if (args[0].equalsIgnoreCase("clear")) {
-			getInstaller().clearAll();
-		} else if (args[0].equalsIgnoreCase("install")) {
-			getInstaller().installAll();	
-		} else if (args[0].equalsIgnoreCase("install_source")) {
-			new SourceInstaller().installAll();
-		}
-		
-		System.out.println();
-		System.out.println("Done!");
-	}
 
 }

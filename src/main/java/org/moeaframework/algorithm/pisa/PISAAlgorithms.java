@@ -17,8 +17,11 @@
  */
 package org.moeaframework.algorithm.pisa;
 
+import java.io.IOException;
 import java.util.function.BiFunction;
 
+import org.moeaframework.algorithm.pisa.installer.PISAInstaller;
+import org.moeaframework.algorithm.pisa.installer.SourceInstaller;
 import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.Problem;
 import org.moeaframework.core.Variation;
@@ -68,6 +71,37 @@ public class PISAAlgorithms extends RegisteredAlgorithmProvider {
 				throw new ProviderNotFoundException(name, e);
 			}
 		};
+	}
+	
+	public static void main(String[] args) throws IOException {
+		if (args.length != 1) {
+			System.err.println("Invalid number of arguments");
+			showUsage();
+			System.exit(-1);
+		}
+		
+		if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help")) {
+			showUsage();
+		} else if (args[0].equalsIgnoreCase("clear")) {
+			PISAInstaller.getInstaller().clearAll();
+		} else if (args[0].equalsIgnoreCase("install")) {
+			PISAInstaller.getInstaller().installAll();	
+		} else if (args[0].equalsIgnoreCase("install_source")) {
+			new SourceInstaller().installAll();
+		}
+		
+		System.out.println();
+		System.out.println("Done!");
+	}
+	
+	private static void showUsage() {
+		 System.out.println("Usage: java -cp \"lib/*\" " + PISAAlgorithms.class.getName() + " <arg>");
+		 System.out.println();
+		 System.out.println("Arguments:");
+		 System.out.println("    clear            Removes all existing PISA selectors");
+		 System.out.println("    help             Displays this help message");
+		 System.out.println("    install          Downloads and installs all PISA selectors");
+		 System.out.println("    install_source   Downloads and compiles all PISA selectors from source code (experimental)");
 	}
 	
 }
