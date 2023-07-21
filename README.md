@@ -18,7 +18,7 @@ Add the following dependency to your `pom.xml`:
 </dependency>
 ```
 
-Or download the JAR from the [Releases](releases) into the MOEA Framework's `lib/` folder.
+Or download the JAR from the [Releases](https://github.com/MOEAFramework/PISA-Plugin/releases) into the MOEA Framework's `lib/` folder.
 
 ## Usage
 
