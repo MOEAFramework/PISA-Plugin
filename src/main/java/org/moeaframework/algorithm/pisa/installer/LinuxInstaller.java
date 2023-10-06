@@ -53,7 +53,8 @@ public class LinuxInstaller extends AbstractPISAInstaller {
 	public void postInstall(String algorithm, File installPath) throws IOException {
 		File executableFile = new File(getInstallPath(algorithm), getCanonicalName(algorithm));
 		
-		if (executableFile.exists()) {
+		if (executableFile.exists() && !executableFile.canExecute()) {
+			System.out.println("Setting executable flag on " + executableFile);
 			executableFile.setExecutable(true);
 		}
 	}

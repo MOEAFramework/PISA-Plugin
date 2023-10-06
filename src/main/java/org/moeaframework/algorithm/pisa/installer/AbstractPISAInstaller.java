@@ -85,7 +85,7 @@ public abstract class AbstractPISAInstaller implements PISAInstaller {
 	
 	@Override
 	public File getInstallPath(String algorithm) {
-		return new File(getInstallRoot(), getCanonicalName(algorithm));
+		return new File(PISASettings.getPISAInstallPath(), getCanonicalName(algorithm));
 	}
 	
 	@Override

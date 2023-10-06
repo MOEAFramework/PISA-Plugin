@@ -17,6 +17,8 @@
  */
 package org.moeaframework.algorithm.pisa;
 
+import java.io.File;
+
 import org.moeaframework.core.Settings;
 
 public class PISASettings {
@@ -40,6 +42,11 @@ public class PISASettings {
 	 * The property key for enabling or disabling automatic PISA installations.
 	 */
 	static final String KEY_PISA_ALLOW_INSTALL = Settings.createKey(KEY_PISA_PREFIX, "allow_install");
+	
+	/**
+	 * The property key for overriding the installation path.
+	 */
+	static final String KEY_PISA_INSTALL_PATH = Settings.createKey(KEY_PISA_PREFIX, "install_path");
 	
 	private PISASettings() {
 		super();
@@ -70,6 +77,16 @@ public class PISASettings {
 	 */
 	public static boolean getPISAAllowInstall() {
 		return Settings.PROPERTIES.getBoolean(KEY_PISA_ALLOW_INSTALL, true);
+	}
+	
+	/**
+	 * Returns the path to install the PISA binaries.  If relative, will be created relative to the
+	 * working directory when running Java.
+	 * 
+	 * @return the path to install the PISA binaries
+	 */
+	public static File getPISAInstallPath() {
+		return new File(Settings.PROPERTIES.getString(KEY_PISA_INSTALL_PATH, "pisa_binaries"));
 	}
 	
 	/**

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.moeaframework.algorithm.pisa.PISASettings;
 import org.moeaframework.core.FrameworkException;
 import org.moeaframework.util.io.CommentedLineReader;
 
@@ -40,10 +41,6 @@ public interface PISAInstaller {
 	public File getInstallPath(String algorithm);
 		
 	public String getCommand(String algorithm);
-	
-	public default File getInstallRoot() {
-		return new File("pisa_binaries");
-	}
 	
 	public default File getDefaultParameterFile(String algorithm) {
 		return new File(getInstallPath(algorithm), algorithm + "_param.txt");
@@ -71,7 +68,7 @@ public interface PISAInstaller {
 	}
 	
 	public default void clearAll() throws IOException {
-		FileUtils.deleteDirectory(getInstallRoot());
+		FileUtils.deleteDirectory(PISASettings.getPISAInstallPath());
 	}
 	
 	public static PISAInstaller getInstaller() {
