@@ -14,11 +14,22 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>org.moeaframework</groupId>
     <artifactId>pisa-plugin</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
 Or download the JAR from the [Releases](https://github.com/MOEAFramework/PISA-Plugin/releases) into the MOEA Framework's `lib/` folder.
+
+## Supported Versions
+
+The latest versions of the MOEA Framework and the PISA-Plugin are compatible.  If using an older version of the
+MOEA Framework, use the table below to identify which version of this plugin to use.
+
+MOEA Framework Version | Compatible PISA-Plugin Version
+---------------------- | ------------------------------
+**`>= 3.8`**           | **`1.0.3`**      
+`3.7`                 | `1.0.2`
+`<= 3.6`             | Not available
 
 ## Usage
 

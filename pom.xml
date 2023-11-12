@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.moeaframework</groupId>
 	<artifactId>pisa-plugin</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>PISA Plugin for the MOEA Framework</name>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.moeaframework</groupId>
 			<artifactId>moeaframework</artifactId>
-			<version>3.7</version>
+			<version>3.8</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -49,6 +49,14 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	  <repositories>
+    <repository>
+      <id>oss.sonatype.org</id>
+      <name>OSS Sonatype Staging</name>
+      <url>https://oss.sonatype.org/content/groups/staging</url>
+    </repository>
+  </repositories>
 
 	<build>
 		<plugins>

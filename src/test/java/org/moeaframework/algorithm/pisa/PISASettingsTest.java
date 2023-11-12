@@ -25,33 +25,33 @@ public class PISASettingsTest {
 	
 	@Test
 	public void testPISAAlgorithms() {
-		Assert.assertTrue(Settings.getPISAAlgorithms().length >= 0);
+		Assert.assertTrue(PISASettings.getPISAAlgorithms().length >= 0);
 	}
 
 	@Test
 	public void testPISAPollRate() {
-		Assert.assertTrue(Settings.getPISAPollRate() >= 0);
+		Assert.assertTrue(PISASettings.getPISAPollRate() >= 0);
 	}
 
 	@Test
 	public void testPISACommand() {
-		for (String algorithm : Settings.getPISAAlgorithms()) {
-			Assert.assertNotNull(Settings.getPISACommand(algorithm));
+		for (String algorithm : PISASettings.getPISAAlgorithms()) {
+			Assert.assertNotNull(PISASettings.getPISACommand(algorithm));
 		}
 	}		
 
 	@Test
 	public void testPISAConfiguration() {
-		for (String algorithm : Settings.getPISAAlgorithms()) {
-			Assert.assertNotNull(Settings.getPISAConfiguration(algorithm));
+		for (String algorithm : PISASettings.getPISAAlgorithms()) {
+			Assert.assertNotNull(PISASettings.getPISAConfiguration(algorithm));
 		}
 	}
 	
 	@Test
 	public void testPISAParameters() {
-		for (String algorithm : Settings.getPISAAlgorithms()) {
-			for (String parameter : Settings.getPISAParameters(algorithm)) {
-				Assert.assertNotNull(Settings.getPISAParameterDefaultValue(algorithm, parameter));
+		for (String algorithm : PISASettings.getPISAAlgorithms()) {
+			for (String parameter : PISASettings.getPISAParameters(algorithm)) {
+				Assert.assertNotNull(PISASettings.getPISAParameterDefaultValue(algorithm, parameter));
 			}
 		}
 	}

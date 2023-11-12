@@ -39,7 +39,7 @@ public class State {
 	/**
 	 * The delay in milliseconds between successive reads of the state file.
 	 */
-	private static final long pollRate = Settings.getPISAPollRate();
+	private static final long pollRate = PISASettings.getPISAPollRate();
 	
 	/**
 	 * The number of times this class will attempt to write to the state file
