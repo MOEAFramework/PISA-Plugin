@@ -24,8 +24,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.moeaframework.core.Settings;
-
 /**
  * Reads and writes PISA state files.
  */
