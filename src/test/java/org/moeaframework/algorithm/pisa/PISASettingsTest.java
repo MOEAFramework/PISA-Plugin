@@ -19,7 +19,6 @@ package org.moeaframework.algorithm.pisa;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.moeaframework.core.Settings;
 
 public class PISASettingsTest {
 	
