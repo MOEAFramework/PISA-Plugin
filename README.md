@@ -14,7 +14,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>org.moeaframework</groupId>
     <artifactId>pisa-plugin</artifactId>
-    <version>1.0.3</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
@@ -27,9 +27,10 @@ MOEA Framework, use the table below to identify which version of this plugin to 
 
 MOEA Framework Version | Compatible PISA-Plugin Version
 ---------------------- | ------------------------------
-**`>= 3.8`**           | **`1.0.3`**      
-`3.7`                 | `1.0.2`
-`<= 3.6`             | Not available
+**`>= 4.0`**           | **`2.0.0`**
+`>= 3.8`               | `1.0.3`      
+`3.7`                  | `1.0.2`
+`<= 3.6`               | Not available
 
 ## Usage
 

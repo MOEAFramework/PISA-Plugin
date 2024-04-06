@@ -22,8 +22,8 @@ import java.io.IOException;
 import org.moeaframework.util.io.RedirectStream;
 
 /**
- * Downloads, compiles, and configures the PISA selector from source code.  This is experimental and may
- * not work on all systems.
+ * Downloads, compiles, and configures the PISA selector from source code.  This is experimental and may not work on
+ * all systems.
  */
 public class SourceInstaller extends AbstractPISAInstaller {
 	

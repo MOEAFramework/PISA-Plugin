@@ -20,6 +20,7 @@ package org.moeaframework.algorithm.pisa.installer;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public abstract class AbstractPISAInstaller implements PISAInstaller {
 		
 	protected void register(String algorithm, String remoteUrl) {
 		try {
-			files.put(getCanonicalName(algorithm), new URL(remoteUrl));
+			files.put(getCanonicalName(algorithm), URI.create(remoteUrl).toURL());
 		} catch (MalformedURLException e) {
 			throw new FrameworkException(e);
 		}
@@ -150,7 +151,8 @@ public abstract class AbstractPISAInstaller implements PISAInstaller {
 				return new String[] {
 						"pwsh",
 						"-Command",
-						"Expand-Archive -Path \"" + zipFile.getAbsolutePath() + "\" -DestinationPath \"" + destinationPath.getAbsolutePath() + "\" -Force"
+						"Expand-Archive -Path \"" + zipFile.getAbsolutePath() + "\" -DestinationPath \"" +
+								destinationPath.getAbsolutePath() + "\" -Force"
 				};
 			} else {
 				return new String[] {
@@ -160,7 +162,8 @@ public abstract class AbstractPISAInstaller implements PISAInstaller {
 						destinationPath.getAbsolutePath()
 				};
 			}
-		} else if (extension.equalsIgnoreCase("tar") || extension.equalsIgnoreCase("gz") || extension.equalsIgnoreCase("tar.gz")) {
+		} else if (extension.equalsIgnoreCase("tar") || extension.equalsIgnoreCase("gz") ||
+				extension.equalsIgnoreCase("tar.gz")) {
 			return new String[] {
 					"tar",
 					"-x",

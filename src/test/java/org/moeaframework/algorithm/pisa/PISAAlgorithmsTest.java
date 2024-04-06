@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Problem;
-import org.moeaframework.core.indicator.QualityIndicator;
+import org.moeaframework.core.indicator.Indicators;
 import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.util.TypedProperties;
 
@@ -48,7 +48,7 @@ public class PISAAlgorithmsTest {
 	/**
 	 * The quality indicator for comparing solutions to the test problem.
 	 */
-	private QualityIndicator qualityIndicator;
+	private Indicators indicators;
 	
 	/**
 	 * Creates the shared problem.
@@ -59,7 +59,8 @@ public class PISAAlgorithmsTest {
 	public void setUp() throws IOException {
 		problem = ProblemFactory.getInstance().getProblem("DTLZ2_2");
 		properties = new TypedProperties();
-		qualityIndicator = new QualityIndicator(problem, ProblemFactory.getInstance().getReferenceSet("DTLZ2_2"));
+		indicators = Indicators.of(problem, ProblemFactory.getInstance().getReferenceSet("DTLZ2_2"))
+				.includeHypervolume();
 		
 		properties.setInt("populationSize", 100);
 		properties.setInt("maxEvaluations", 1000);
@@ -72,13 +73,12 @@ public class PISAAlgorithmsTest {
 	public void tearDown() {
 		problem = null;
 		properties = null;
-		qualityIndicator = null;
+		indicators = null;
 	}
 	
 	/**
-	 * Tests if running NSGA2 with the same or different parameter settings
-	 * produces different/similar results, thus checking if the parameters
-	 * are correctly set.
+	 * Tests if running NSGA2 with the same or different parameter settings produces different/similar results, thus
+	 * checking if the parameters are correctly set.
 	 */
 	@Test
 	public void testNSGA2() {
@@ -133,8 +133,7 @@ public class PISAAlgorithmsTest {
 		Assert.assertTrue(algorithm.getResult().size() > 0);
 		Assert.assertTrue(algorithm.isTerminated());
 		
-		qualityIndicator.calculate(algorithm.getResult());
-		return qualityIndicator.getHypervolume();
+		return indicators.apply(algorithm.getResult()).getHypervolume();
 	}
 	
 }

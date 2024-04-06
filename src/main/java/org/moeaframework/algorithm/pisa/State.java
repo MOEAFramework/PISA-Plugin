@@ -40,9 +40,8 @@ public class State {
 	private static final long pollRate = PISASettings.getPISAPollRate();
 	
 	/**
-	 * The number of times this class will attempt to write to the state file
-	 * until propagating the error.  Failures primarily result from PISA 
-	 * selectors locking the state file.
+	 * The number of times this class will attempt to write to the state file until propagating the error.  Failures
+	 * primarily result from PISA selectors locking the state file.
 	 */
 	private static final int numberOfRetries = 5;
 
@@ -79,8 +78,7 @@ public class State {
 	 * 
 	 * @param state the state
 	 * @throws IOException if an I/O error occurred
-	 * @throws InterruptedException if {@link Thread#sleep(long)} was
-	 *         interrupted
+	 * @throws InterruptedException if {@link Thread#sleep(long)} was interrupted
 	 */
 	public void set(int state) throws IOException, InterruptedException {
 		int retriesRemaining = numberOfRetries;
@@ -106,8 +104,7 @@ public class State {
 	 * 
 	 * @param state the state to wait for
 	 * @throws IOException if an I/O error occurred
-	 * @throws InterruptedException if {@link Thread#sleep(long)} was
-	 *         interrupted
+	 * @throws InterruptedException if {@link Thread#sleep(long)} was interrupted
 	 */
 	public void waitFor(int state) throws IOException, InterruptedException {
 		while (!file.exists() || (get() != state)) {
@@ -116,14 +113,12 @@ public class State {
 	}
 
 	/**
-	 * Blocks while the state remains at the specified value, returning the
-	 * new state value when it changes.
+	 * Blocks while the state remains at the specified value, returning the new state value when it changes.
 	 * 
 	 * @param state the state to wait on
 	 * @return the new state
 	 * @throws IOException if an I/O error occurred
-	 * @throws InterruptedException if {@link Thread#sleep(long)} was
-	 *         interrupted
+	 * @throws InterruptedException if {@link Thread#sleep(long)} was interrupted
 	 */
 	public int waitWhile(int state) throws IOException, InterruptedException {
 		int current;

@@ -80,8 +80,8 @@ public class PISASettings {
 	}
 	
 	/**
-	 * Returns the path to install the PISA binaries.  If relative, will be created relative to the
-	 * working directory when running Java.
+	 * Returns the path to install the PISA binaries.  If relative, will be created relative to the working directory
+	 * when running Java.
 	 * 
 	 * @return the path to install the PISA binaries
 	 */

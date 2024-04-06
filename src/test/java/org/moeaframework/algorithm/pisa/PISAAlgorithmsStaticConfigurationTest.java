@@ -19,6 +19,8 @@ package org.moeaframework.algorithm.pisa;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -32,11 +34,9 @@ import org.moeaframework.core.Settings;
 import org.moeaframework.core.spi.ProblemFactory;
 import org.moeaframework.core.spi.ProviderNotFoundException;
 import org.moeaframework.util.TypedProperties;
-import org.moeaframework.util.io.FileUtils;
 
 /**
- * Tests the {@link PISAAlgorithms} class using the old, static configuration
- * files.
+ * Tests the {@link PISAAlgorithms} class using the old, static configuration files.
  */
 public class PISAAlgorithmsStaticConfigurationTest {
 	
@@ -136,13 +136,11 @@ public class PISAAlgorithmsStaticConfigurationTest {
 	@Test
 	@Ignore("need to make design file an argument, otherwise can't parallelize")
 	public void testMSOPS() throws IOException {
-		FileUtils.copy(
-				new File("./pisa/msops_win/msops_weights/" + 
-						properties.getString("populationSize", "") + 
-						"/space-filling-" +
-						realProblem.getNumberOfObjectives() + "dim.des"), 
-				new File("space-filling-" +
-						realProblem.getNumberOfObjectives() + "dim.des"));
+		Files.copy(new File("./pisa/msops_win/msops_weights/" + properties.getString("populationSize", "") + 
+						"/space-filling-" + realProblem.getNumberOfObjectives() + "dim.des").toPath(), 
+				new File("space-filling-" + realProblem.getNumberOfObjectives() + "dim.des").toPath(),
+				StandardCopyOption.REPLACE_EXISTING);
+		
 		run("msops", realProblem);
 	}
 

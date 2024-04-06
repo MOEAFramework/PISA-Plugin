@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.text.StringTokenizer;
 import org.moeaframework.algorithm.AbstractAlgorithm;
 import org.moeaframework.algorithm.AlgorithmException;
 import org.moeaframework.algorithm.pisa.installer.PISAInstaller;
@@ -41,32 +42,25 @@ import org.moeaframework.core.Initialization;
 import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Problem;
-import org.moeaframework.core.Settings;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.Variation;
-import org.moeaframework.core.operator.RandomInitialization;
+import org.moeaframework.core.initialization.RandomInitialization;
 import org.moeaframework.util.TypedProperties;
-import org.moeaframework.util.io.FileUtils;
 import org.moeaframework.util.io.RedirectStream;
 
 /**
- * Algorithm for interfacing with an external PISA selector. The PISA
- * framework is a platform and programming language independent interface for
- * search algorithms. PISA separates search algorithms into <em>selector</em>s,
- * describing the optimization algorithm, and <em>variator</em>s, describing
- * the optimization problem. PISA uses a file-based communication channel
- * between selectors and variators, which may result in excessive
- * communication costs, file system bottlenecks and file name collisions.
- * See the PISA homepage for detailed instructions.
+ * Algorithm for interfacing with an external PISA selector.  The PISA framework is a platform and programming language
+ * independent interface for search algorithms.  PISA separates search algorithms into <em>selector</em>s, describing
+ * the optimization algorithm, and <em>variator</em>s, describing the optimization problem. PISA uses a file-based
+ * communication channel between selectors and variators, which may result in excessive communication costs, file
+ * system bottlenecks and file name collisions.  See the PISA homepage for detailed instructions.
  * <p>
- * Note that some PISA selectors parse the command line arguments using sscanf
+ * Note that some PISA selectors parse the command line arguments using sscanf:
  * <pre>
  *   sscanf(argv[2], "%s", filenamebase);
  * </pre>
- * On some operating systems, this will not work if the files used by PISA
- * contain whitespace in the filename.  It may be necessary to set the JVM
- * property {@code java.io.tmpdir} to a folder with no whitespace in the
- * filename.
+ * On some operating systems, this will not work if the files used by PISA contain whitespace in the filename.  It may
+ * be necessary to set the JVM property {@code java.io.tmpdir} to a folder with no whitespace in the filename.
  * 
  * @see <a href="http://sop.tik.ee.ethz.ch/pisa/">PISA Homepage</a>
  */
@@ -189,7 +183,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 		
 		//construct the command line call to start the PISA selector
 		selector = new ProcessBuilder(ArrayUtils.addAll(
-				Settings.parseCommand(command), 
+				parseCommand(command), 
 				configuration,
 				filePrefix, 
 				Double.toString(pollRate/(double)1000)));
@@ -235,8 +229,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	public void terminate() {
 		super.terminate();
 		
-		//guard against attempting to access the non-existent state file if 
-		//this algorithm is not yet initialized
+		//guard against attempting to access the non-existent state file if this algorithm is not yet initialized
 		if (!isInitialized()) {
 			return;
 		}
@@ -293,10 +286,14 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 		result.addAll(solutions.values());
 		return result;
 	}
+	
+	private String[] parseCommand(String command) {
+		return new StringTokenizer(command).setQuoteChar('\"').getTokenArray();
+	}
 
 	/**
-	 * Clears the specified file. Some selector implementations may block until
-	 * the {@code sel} and {@code arc} files are cleared.
+	 * Clears the specified file. Some selector implementations may block until the {@code sel} and {@code arc} files
+	 * are cleared.
 	 * 
 	 * @param file the file to clear
 	 * @throws IOException if an I/O error occurred
@@ -308,8 +305,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	}
 
 	/**
-	 * Updates the population, retaining only those solutions with the
-	 * specified identifiers.
+	 * Updates the population, retaining only those solutions with the specified identifiers.
 	 * 
 	 * @param ids the identifiers to retain
 	 */
@@ -324,8 +320,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	}
 
 	/**
-	 * Adds the specified solution to the population, returning its assigned
-	 * identifier.
+	 * Adds the specified solution to the population, returning its assigned identifier.
 	 * 
 	 * @param solution the solution
 	 * @return the assigned identifier for the solution
@@ -378,11 +373,6 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	 */
 	private void state4() throws IOException {
 		int[] archivedIds = readList(new File(filePrefix + "arc"));
-
-//		if (archivedIds.length != alpha) {
-//			throw new IOException("invalid archive length");
-//		}
-
 		updatePopulation(archivedIds);
 	}
 
@@ -430,8 +420,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	}
 
 	/**
-	 * Reads either the {@code sel} or {@code arc} files, returning the list
-	 * of identifiers contained in the file.
+	 * Reads either the {@code sel} or {@code arc} files, returning the list of identifiers contained in the file.
 	 * 
 	 * @param file the {@code sel} or {@code arc} file
 	 * @return the list of identifiers contained in the file
@@ -470,8 +459,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	}
 
 	/**
-	 * Writes either the {@code ini} or {@code var} file with the specified
-	 * identifiers.
+	 * Writes either the {@code ini} or {@code var} file with the specified identifiers.
 	 * 
 	 * @param file the {@code ini} or {@code var} file
 	 * @param ids the identifiers of solutions written to the file
@@ -497,20 +485,18 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	}
 
 	/**
-	 * Removes any existing PISA communication files, creating a new {@code cfg}
-	 * file with the appropriate settings.
+	 * Removes any existing PISA communication files, creating a new {@code cfg} file with the appropriate settings.
 	 * 
 	 * @throws IOException if an I/O error occurred
 	 */
 	private void configure() throws IOException {
-		FileUtils.delete(new File(filePrefix + "arc"));
-		FileUtils.delete(new File(filePrefix + "cfg"));
-		FileUtils.delete(new File(filePrefix + "ini"));
-		FileUtils.delete(new File(filePrefix + "sel"));
-		FileUtils.delete(new File(filePrefix + "sta"));
+		new File(filePrefix + "arc").delete();
+		new File(filePrefix + "cfg").delete();
+		new File(filePrefix + "ini").delete();
+		new File(filePrefix + "sel").delete();
+		new File(filePrefix + "sta").delete();
 
-		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(
-					new File(filePrefix + "cfg"))))) {
+		try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(new File(filePrefix + "cfg"))))) {
 			writer.print("alpha ");
 			writer.println(alpha);
 			writer.print("mu ");
