@@ -74,7 +74,7 @@ To avoid this setup or to support running without an internet connection, you ca
 
 ```bash
 
-java -cp "lib/*" org.moeaframework.algorithm.pisa.PISAAlgorithms install
+java -classpath "lib/*" org.moeaframework.algorithm.pisa.PISAAlgorithms install
 ```
 
 ### Blocking Downloads
@@ -94,10 +94,11 @@ all selectors by running:
 
 ```bash
 
-java -cp "lib/*" org.moeaframework.algorithm.pisa.PISAAlgorithms install_source
+java -classpath "lib/*" org.moeaframework.algorithm.pisa.PISAAlgorithms install_source
 ```
 
-Compiling will require the following dependencies: `make`, a C/C++ compiler such as `gcc`, `unrar`, `unzip`, and `tar`.
+Compiling will require the following dependencies: `make`, a C/C++ compiler such as `gcc`, `unrar`,
+`unzip`, and `tar`.
 
 
 ## Limitations
@@ -107,7 +108,7 @@ version by appending `-PISA` to the name, such as `NSGA2-PISA`.
 
 ## License
 
-Copyright 2009-2023 David Hadka and other contributors.  All rights reserved.
+Copyright 2009-2024 David Hadka and other contributors.  All rights reserved.
 
 The MOEA Framework is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
