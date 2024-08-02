@@ -3,7 +3,7 @@ name: Validate and stage release
 on:
   workflow_dispatch:
     inputs:
-      version:
+      expected-version:
         type: string
         description: The version to publish
         required: true
@@ -39,6 +39,7 @@ jobs:
       - name: Get project info
         uses: MOEAFramework/.github/actions/get-project-info@main
         with:
+          expected-version: ${{ inputs.expected-version }}
           skip-validation: ${{ inputs.skip-validation }}
       - name: Build and stage Maven artifacts
         if: ${{ inputs.publish-maven }}
