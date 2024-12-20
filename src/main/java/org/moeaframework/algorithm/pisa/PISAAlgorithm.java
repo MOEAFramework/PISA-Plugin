@@ -485,7 +485,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 
 				for (int j = 0; j < problem.getNumberOfObjectives(); j++) {
 					writer.print(' ');
-					writer.print(solutions.get(ids[i]).getObjective(j));
+					writer.print(solutions.get(ids[i]).getObjectiveValue(j));
 				}
 
 				writer.println();
