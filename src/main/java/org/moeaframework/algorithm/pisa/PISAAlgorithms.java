@@ -20,15 +20,15 @@ package org.moeaframework.algorithm.pisa;
 import java.io.IOException;
 import java.util.function.BiFunction;
 
+import org.moeaframework.algorithm.Algorithm;
 import org.moeaframework.algorithm.pisa.installer.PISAInstaller;
 import org.moeaframework.algorithm.pisa.installer.SourceInstaller;
-import org.moeaframework.core.Algorithm;
-import org.moeaframework.core.Problem;
-import org.moeaframework.core.Variation;
+import org.moeaframework.core.TypedProperties;
+import org.moeaframework.core.operator.Variation;
 import org.moeaframework.core.spi.OperatorFactory;
 import org.moeaframework.core.spi.ProviderNotFoundException;
 import org.moeaframework.core.spi.RegisteredAlgorithmProvider;
-import org.moeaframework.util.TypedProperties;
+import org.moeaframework.problem.Problem;
 
 /**
  * Algorithm provider for PISA selectors.

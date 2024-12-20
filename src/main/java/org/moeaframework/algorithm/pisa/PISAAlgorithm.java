@@ -38,14 +38,14 @@ import org.moeaframework.algorithm.AbstractAlgorithm;
 import org.moeaframework.algorithm.AlgorithmException;
 import org.moeaframework.algorithm.pisa.installer.PISAInstaller;
 import org.moeaframework.core.FrameworkException;
-import org.moeaframework.core.Initialization;
-import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.PRNG;
-import org.moeaframework.core.Problem;
 import org.moeaframework.core.Solution;
-import org.moeaframework.core.Variation;
+import org.moeaframework.core.TypedProperties;
+import org.moeaframework.core.initialization.Initialization;
 import org.moeaframework.core.initialization.RandomInitialization;
-import org.moeaframework.util.TypedProperties;
+import org.moeaframework.core.operator.Variation;
+import org.moeaframework.core.population.NondominatedPopulation;
+import org.moeaframework.problem.Problem;
 import org.moeaframework.util.io.RedirectStream;
 
 /**
@@ -65,6 +65,11 @@ import org.moeaframework.util.io.RedirectStream;
  * @see <a href="http://sop.tik.ee.ethz.ch/pisa/">PISA Homepage</a>
  */
 public class PISAAlgorithm extends AbstractAlgorithm {
+	
+	/**
+	 * The name of the PISA selector.
+	 */
+	private final String name;
 
 	/**
 	 * The file prefix used when creating the PISA communication files.
@@ -117,6 +122,7 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 	 */
 	public PISAAlgorithm(String name, Problem problem, Variation variation, TypedProperties properties) throws IOException {
 		super(problem);
+		this.name = name;
 		this.variation = variation;
 		
 		if (problem.getNumberOfConstraints() > 0) {
@@ -202,9 +208,14 @@ public class PISAAlgorithm extends AbstractAlgorithm {
 		state = new State(new File(filePrefix + "sta"));
 		solutions = new HashMap<Integer, Solution>();
 	}
+	
+	@Override
+	public String getName() {
+		return name;
+	}
 
 	@Override
-	protected void initialize() {
+	public void initialize() {
 		super.initialize();
 		
 		if (variation == null) {

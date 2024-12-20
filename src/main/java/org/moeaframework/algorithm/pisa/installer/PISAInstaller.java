@@ -28,7 +28,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.moeaframework.algorithm.pisa.PISASettings;
 import org.moeaframework.core.FrameworkException;
-import org.moeaframework.util.io.CommentedLineReader;
+import org.moeaframework.util.io.LineReader;
 
 public interface PISAInstaller {
 	
@@ -55,7 +55,7 @@ public interface PISAInstaller {
 		File defaultParameterFile = getDefaultParameterFile(algorithm);
 		Map<String, String> defaultParameters = new LinkedHashMap<String, String>();
 		
-		try (CommentedLineReader reader = new CommentedLineReader(new FileReader(defaultParameterFile))) {
+		try (LineReader reader = LineReader.wrap(new FileReader(defaultParameterFile)).skipComments()) {
 			String line = null;
 			
 			while ((line = reader.readLine()) != null) {

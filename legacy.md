@@ -1,11 +1,10 @@
 # Legacy Configuration for PISA-Plugin
 
-Starting with MOEA Framework 3.7 and the introduction of the PISA-Plugin extension, no configuration
-is required to use PISA selectors.
+Starting with MOEA Framework 3.7 and the introduction of the PISA-Plugin extension, no configuration is required to use
+PISA selectors.
 
-However, with prior versions, one needed to edit `moeaframework.properties` to configure each
-selector.  This legacy configuration is still supported for backwards compatibility.  Below is an
-example of the settings:
+However, with prior versions, one needed to edit `moeaframework.properties` to configure each selector.  This legacy
+configuration is still supported for backwards compatibility.  Below is an example of the settings:
 
 ```
 ## The following defines the available PISA selector names.

@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.moeaframework.core.Algorithm;
+import org.moeaframework.algorithm.Algorithm;
 import org.moeaframework.core.PRNG;
-import org.moeaframework.core.Problem;
+import org.moeaframework.core.TypedProperties;
 import org.moeaframework.core.indicator.Indicators;
 import org.moeaframework.core.spi.ProblemFactory;
-import org.moeaframework.util.TypedProperties;
+import org.moeaframework.problem.Problem;
 
 /**
  * Tests the {@link PISAAlgorithms} class using the new, parameter-based configurations.
