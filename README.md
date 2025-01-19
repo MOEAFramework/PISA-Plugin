@@ -31,8 +31,8 @@ Framework, use the table below to identify which version of this plugin to use.
 MOEA Framework Version | Compatible PISA-Plugin Version
 ---------------------- | ------------------------------
 **`>= 5.0`**           | **`3.0.0`**
-`>= 4.0`               | `2.0.0`
-`>= 3.8`               | `1.0.3`      
+`4.0 - 4.5`            | `2.0.0`
+`3.8 - 3.11`           | `1.0.3`      
 `3.7`                  | `1.0.2`
 `<= 3.6`               | Not available
 
